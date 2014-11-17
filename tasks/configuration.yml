@@ -1,0 +1,38 @@
+---
+
+- name: Set nginx configuration file
+  template:
+    src: nginx.conf.j2
+    dest: '{{ passenger_nginx_path }}/nginx.conf'
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_nginx
+
+- name: Set passenger configuration file
+  template:
+    src: passenger.conf.j2
+    dest: '{{ passenger_nginx_conf_path }}/passenger.conf'
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_nginx
+
+- name: Configure logrotate
+  template:
+    src: logrotate.j2
+    dest: '/etc/logrotate.d/{{ item.name }}'
+    owner: root
+    group: root
+    mode: 644
+  with_items: passenger_nginx_logrotate_config
+  when: passenger_nginx_logrotate_config is defined
+
+- name: Create custom directories
+  file:
+    path: '{{ item.path }}'
+    state: directory
+    owner: '{{ item.owner }}'
+    group: '{{ item.group }}'
+  with_items: passenger_nginx_custom_directories
+

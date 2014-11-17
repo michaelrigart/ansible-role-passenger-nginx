@@ -1,0 +1,12 @@
+{% for param, value in passenger_nginx_nginx_config['main'].items() %}
+{{ param }}     {{ value }};
+{% endfor %}
+
+
+{% for section, options in passenger_nginx_nginx_config.iteritems() if not section == 'main' %}
+{{ section }} {
+{% for key, value in options.iteritems() %}
+  {{ key }}     {{ value }};
+{% endfor %}
+}
+{% endfor %}

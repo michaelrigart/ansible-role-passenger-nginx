@@ -1,0 +1,71 @@
+---
+
+passenger_nginx_apt_https:
+  - apt-transport-https
+  - ca-certificates
+passenger_nginx_apt_pkgs:
+  - name: nginx-extras
+  - name: passenger
+passenger_nginx_pkg_version:
+passenger_nginx_path: /etc/nginx
+passenger_nginx_conf_path: /etc/nginx/conf.d
+passenger_nginx_pkg_state: installed
+passenger_nginx_service_state: restarted
+passenger_nginx_service_enabled: yes
+passenger_nginx_nginx_config:
+  main:
+    user: www-data www-data
+    worker_processes: 3
+    pid:  /var/run/nginx.pid
+  events:
+    worker_connections: 1024
+    multi_accept: 'on'
+  http:
+    access_log: /var/log/nginx/access.log
+    error_log: /var/log/nginx/error.log
+    sendfile: 'on'
+    tcp_nopush: 'on'
+    tcp_nodelay: 'on'
+    keepalive_timeout: 65
+    types_hash_max_size: 2048
+    client_max_body_size: 100M
+    proxy_cache_path: /var/cache/nginx levels=1:2 keys_zone=microcache:8m max_size=3G inactive=10m
+    proxy_temp_path: /var/cache/nginx/tmp 1 2
+    server_tokens: 'off'
+    more_clear_headers: '"Server" "X-Powered-By" "X-Runtime"'
+    server_names_hash_max_size: 2048
+    gzip: 'on'
+    gzip_comp_level: 9
+    gzip_buffers: 16 8k
+    gzip_disable: '"msie6"'
+    gzip_proxied: any
+    gzip_types: text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript
+    charset: utf-8
+    include: /etc/nginx/conf.d/*.conf
+    include: /etc/nginx/sites-enabled/*
+    include: /etc/nginx/mime.types
+    default_type: application/octet-stream
+passenger_nginx_passenger_config:
+  passenger_root: /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini
+  passenger_ruby: /usr/bin/ruby
+  passenger_max_pool_size: 6
+passenger_nginx_custom_directories:
+  - path: /var/cache/nginx/tmp
+    owner: www-data
+    group: root
+passenger_nginx_logrotate_config:
+  - name: nginx
+    logpath: '/var/log/nginx/*.log'
+    options:
+      - daily
+      - missingok
+      - rotate 7
+      - minsize 1
+      - compress
+      - delaycompress
+      - notifempty
+      - create 640 root adm
+      - sharedscripts
+      - postrotate
+      - '[ ! -f /var/run/nginx.pid ] || kill -USR1 `cat /var/run/nginx.pid`'
+      - endscript
