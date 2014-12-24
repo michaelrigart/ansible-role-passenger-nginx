@@ -6,7 +6,13 @@
 {% for section, options in passenger_nginx_nginx_config.iteritems() if not section == 'main' %}
 {{ section }} {
 {% for key, value in options.iteritems() %}
+{% if value is string %}
   {{ key }}     {{ value }};
+{% else %}
+{% for item in value %}
+  {{ key }}     {{ item }};
+{% endfor %}
+{% endif %}
 {% endfor %}
 }
 {% endfor %}
