@@ -1,5 +1,7 @@
 ---
 
+passenger_nginx_apt_key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0xAC40B2F7'
+passenger_nginx_repo: 'deb https://oss-binaries.phusionpassenger.com/apt/passenger {{ ansible_lsb.codename }} main'
 passenger_nginx_apt_https:
   - apt-transport-https
   - ca-certificates

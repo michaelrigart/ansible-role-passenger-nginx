@@ -2,7 +2,7 @@
 
 - name: Add key for passenger
   apt_key:
-    url: http://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0xAC40B2F7
+    url: '{{ passenger_nginx_apt_key_url }}'
     state: present
 
 - name: APT via HTTPS
@@ -15,7 +15,7 @@
 
 - name: Add passenger repo
   apt_repository:
-    repo: 'deb https://oss-binaries.phusionpassenger.com/apt/passenger {{ ansible_lsb.codename }} main'
+    repo: '{{ passenger_nginx_repo }}'
     state: present
 
 - name: Install specific passenger-nginx packages
