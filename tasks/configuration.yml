@@ -24,7 +24,7 @@
     dest: '/etc/logrotate.d/{{ item.name }}'
     owner: root
     group: root
-    mode: 644
+    mode: 0644
   with_items: passenger_nginx_logrotate_config
   when: passenger_nginx_logrotate_config is defined
 
