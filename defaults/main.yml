@@ -12,7 +12,7 @@ passenger_nginx_pkg_version:
 passenger_nginx_path: /etc/nginx
 passenger_nginx_conf_path: /etc/nginx/conf.d
 passenger_nginx_pkg_state: installed
-passenger_nginx_service_state: restarted
+passenger_nginx_service_state: started
 passenger_nginx_service_enabled: yes
 passenger_nginx_nginx_config:
   main:
