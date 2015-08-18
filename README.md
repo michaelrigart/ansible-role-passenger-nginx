@@ -1,6 +1,6 @@
 Ansible Passenger-Nginx Role
 ============================
-[![Build Status](https://semaphoreci.com/api/v1/projects/8ae9066f-aa84-4233-93e4-2226b522742f/461767/badge.svg)](https://semaphoreci.com/michaelrigart/ansible-role-passenger-nginx) [![Build Status](https://travis-ci.org/michaelrigart/ansible-role-passenger-nginx.svg?branch=master)](https://travis-ci.org/michaelrigart/ansible-role-passenger-nginx)
+[![Build Status](https://semaphoreci.com/api/v1/projects/8ae9066f-aa84-4233-93e4-2226b522742f/461767/badge.svg)](https://semaphoreci.com/michaelrigart/ansible-role-passenger-nginx)
 
 An ansible role for installing and configuring Passenger with Nginx.
 
