@@ -11,7 +11,7 @@
     state: present
     update_cache: yes
     cache_valid_time: 3600
-  with_items: passenger_nginx_apt_https
+  with_items: '{{ passenger_nginx_apt_https }}'
 
 - name: Add passenger repo
   apt_repository:
@@ -24,7 +24,7 @@
     state: installed
     update_cache: yes
     cache_valid_time: 3600
-  with_items: passenger_nginx_apt_pkgs
+  with_items: '{{ passenger_nginx_apt_pkgs }}'
   when: item.version is defined
   notify: restart_nginx
 
@@ -34,6 +34,6 @@
     state: '{{ passenger_nginx_pkg_state }}'
     update_cache: yes
     cache_valid_time: 3600
-  with_items: passenger_nginx_apt_pkgs
+  with_items: '{{ passenger_nginx_apt_pkgs }}'
   when: item.version is not defined
   notify: restart_nginx
